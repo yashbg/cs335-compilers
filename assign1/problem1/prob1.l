@@ -3,10 +3,13 @@
 #include <string>
 #include <map>
 #include <utility>
+#include <cctype>
 
-std::map<std::string, std::pair<int, std::string>> lexemes;
+std::map<std::string, std::pair<int, std::string>> lexemes; // lexeme -> (count, token)
+std::map<std::string, int> keywords; // keyword -> count
 
 void store(std::string lexeme, std::string token);
+std::string tolower(const std::string &str);
 %}
 
 %option c++ noyywrap yylineno nodefault yylineno
@@ -49,6 +52,13 @@ WHITESPACE      [ \t\f\n]+
 %%
 
 void store(std::string lexeme, std::string token) {
+    if (token == "KEYWORD") {
+        std::string lexeme_lower = tolower(lexeme);
+        keywords[lexeme_lower]++;
+        lexemes[lexeme] = {0, token};
+        return;
+    }
+
     if (!lexemes.count(lexeme)) {
         lexemes[lexeme] = {1, token};
         return;
@@ -57,13 +67,23 @@ void store(std::string lexeme, std::string token) {
     lexemes[lexeme].first++;
 }
 
+std::string tolower(const std::string &str) {
+    std::string str_lower = str;
+    for (auto &c : str_lower) {
+        c = std::tolower(c);
+    }
+
+    return str_lower;
+}
+
 int main(int /* argc */, char** /* argv */) {
     FlexLexer* lexer = new yyFlexLexer;
     while(lexer->yylex() != 0);
 
     std::cout << "TOKEN\t\tCOUNT\t\tLEXEME" << std::endl;
-    for (auto& lexeme : lexemes) {
-        std::cout << lexeme.second.second << "\t\t" << lexeme.second.first << "\t\t" << lexeme.first << std::endl;
+    for (auto &lexeme : lexemes) {
+        int count = lexeme.second.second == "KEYWORD" ? keywords[tolower(lexeme.first)] : lexeme.second.first;
+        std::cout << lexeme.second.second << "\t\t" << count << "\t\t" << lexeme.first << std::endl;
     }
     
     return 0;
