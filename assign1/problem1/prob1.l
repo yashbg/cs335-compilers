@@ -47,7 +47,7 @@ WHITESPACE      [ \t\f\n]+
 
 {WHITESPACE}        /* ignore whitespace */
 
-.                   std::cout << "Unrecognized character: " << yytext << std::endl;
+.                   std::cout << "Line " << yylineno << ": Unrecognized character: " << yytext << std::endl;
 
 %%
 
