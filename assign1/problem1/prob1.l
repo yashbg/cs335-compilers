@@ -15,7 +15,7 @@ std::string tolower(const std::string &str);
 %option c++ noyywrap yylineno nodefault yylineno
 
 KEYWORD         (?i:ARRAY)|(?i:BEGIN)|(?i:BOOLEAN)|(?i:COMMENT)|(?i:CONTINUE)|(?i:DO)|(?i:DOUBLE)|(?i:ELSE)|(?i:END)|(?i:FALSE)|(?i:FOR)|(?i:IF)|(?i:INTEGER)|(?i:LABEL)|(?i:LIST)|(?i:LONG)|(?i:OWN)|(?i:PROCEDURE)|(?i:STEP)|(?i:SWITCH)|(?i:THEN)|(?i:TRUE)|(?i:UNTIL)|(?i:VALUE)|(?i:WHILE)
-OPERATOR        (?i:AND)|(?i:OR)|(?i:LEQ)|(?i:LT)|(?i:GEQ)|(?i:GT)|(?i:NOT)|(?i:EQL)|(?i:NEQ)|[+\-*/%^|&]|(:=)|(«)|(»)|(<=)|(>=)
+OPERATOR        (?i:AND)|(?i:OR)|(?i:LEQ)|(?i:LT)|(?i:GEQ)|(?i:GT)|(?i:NOT)|(?i:EQL)|(?i:NEQ)|[+\-*/%^|&]|(:=)|(<<)|(>>)|(<=)|(>=)
 IDENTIFIER      [a-zA-Z][a-zA-Z0-9]*
 STRING          (\"[^'"]*\")|(\'[^'"]*\')
 DELIMITER       [;:,[\]{}()]
