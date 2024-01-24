@@ -1,4 +1,5 @@
 %{
+#include <iostream>
 #include <string>
 #include <map>
 #include <utility>
@@ -43,13 +44,11 @@ WHITESPACE      [ \t\f\n]+
 
 {WHITESPACE}        /* ignore whitespace */
 
-.                   printf("Unrecognized character: %s\n", yytext);
+.                   std::cout << "Unrecognized character: " << yytext << std::endl;
 
 %%
 
 void store(std::string lexeme, std::string token) {
-    // printf("%s: %s\n", token.c_str(), lexeme.c_str());
-    
     if (!lexemes.count(lexeme)) {
         lexemes[lexeme] = {1, token};
         return;
@@ -61,5 +60,11 @@ void store(std::string lexeme, std::string token) {
 int main(int /* argc */, char** /* argv */) {
     FlexLexer* lexer = new yyFlexLexer;
     while(lexer->yylex() != 0);
+
+    std::cout << "TOKEN\t\tCOUNT\t\tLEXEME" << std::endl;
+    for (auto& lexeme : lexemes) {
+        std::cout << lexeme.second.second << "\t\t" << lexeme.second.first << "\t\t" << lexeme.first << std::endl;
+    }
+    
     return 0;
 }
