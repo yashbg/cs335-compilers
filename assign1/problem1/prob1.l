@@ -1,8 +1,14 @@
 %{
-/* need this for the call to atof() below */
-// #include <math.h>
-// #include <vector>
+#include <string>
+#include <map>
+#include <utility>
+
+std::map<std::string, std::pair<int, std::string>> lexemes;
+
+void store(std::string lexeme, std::string token);
 %}
+
+%option noyywrap c++ yylineno nodefault yylineno
 
 KEYWORD         (?i:ARRAY)|(?i:BEGIN)|(?i:BOOLEAN)|(?i:COMMENT)|(?i:CONTINUE)|(?i:DO)|(?i:DOUBLE)|(?i:ELSE)|(?i:END)|(?i:FALSE)|(?i:FOR)|(?i:IF)|(?i:INTEGER)|(?i:LABEL)|(?i:LIST)|(?i:LONG)|(?i:OWN)|(?i:PROCEDURE)|(?i:STEP)|(?i:SWITCH)|(?i:THEN)|(?i:TRUE)|(?i:UNTIL)|(?i:VALUE)|(?i:WHILE)
 OPERATOR        (?i:AND)|(?i:OR)|(?i:LEQ)|(?i:LT)|(?i:GEQ)|(?i:GT)|(?i:NOT)|(?i:EQL)|(?i:NEQ)|[+\-*/%^|&]|(:=)|(«)|(»)|(<=)|(>=)
@@ -17,26 +23,35 @@ WHITESPACE      [ \t\f\n]+
 
 %%
 
-{KEYWORD}           printf("KEYWORD: %s\n", yytext);
+{KEYWORD}           store(yytext, "KEYWORD");
 
-{OPERATOR}          printf("OPERATOR: %s\n", yytext);
+{OPERATOR}          store(yytext, "OPERATOR");
 
-{IDENTIFIER}        printf("IDENTIFIER: %s\n", yytext);
+{IDENTIFIER}        store(yytext, "IDENTIFIER");
 
-{STRING}            printf("STRING: %s\n", yytext);
+{STRING}            store(yytext, "STRING");
 
-{DELIMITER}         printf("DELIMITER: %s\n", yytext);
+{DELIMITER}         store(yytext, "DELIMITER");
 
-{INTEGER}           printf("INTEGER: %s\n", yytext);
+{INTEGER}           store(yytext, "INTEGER");
 
-{FLOATING_POINT}    printf("FLOATING_POINT: %s\n", yytext);
+{FLOATING_POINT}    store(yytext, "FLOATING_POINT");
 
-{HEXADECIMAL}       printf("HEXADECIMAL: %s\n", yytext);
+{HEXADECIMAL}       store(yytext, "HEXADECIMAL");
 
-{COMMENT}           printf("COMMENT: %s\n", yytext);
+{COMMENT}           store(yytext, "COMMENT");
 
 {WHITESPACE}        /* ignore whitespace */
 
 .                   printf("Unrecognized character: %s\n", yytext);
 
 %%
+
+void store(std::string lexeme, std::string token) {
+    if (!lexemes.count(lexeme)) {
+        lexemes[lexeme] = {1, token};
+        return;
+    }
+
+    lexemes[lexeme].first++;
+}
