@@ -8,7 +8,7 @@ std::map<std::string, std::pair<int, std::string>> lexemes;
 void store(std::string lexeme, std::string token);
 %}
 
-%option noyywrap c++ yylineno nodefault yylineno
+%option c++ noyywrap yylineno nodefault yylineno
 
 KEYWORD         (?i:ARRAY)|(?i:BEGIN)|(?i:BOOLEAN)|(?i:COMMENT)|(?i:CONTINUE)|(?i:DO)|(?i:DOUBLE)|(?i:ELSE)|(?i:END)|(?i:FALSE)|(?i:FOR)|(?i:IF)|(?i:INTEGER)|(?i:LABEL)|(?i:LIST)|(?i:LONG)|(?i:OWN)|(?i:PROCEDURE)|(?i:STEP)|(?i:SWITCH)|(?i:THEN)|(?i:TRUE)|(?i:UNTIL)|(?i:VALUE)|(?i:WHILE)
 OPERATOR        (?i:AND)|(?i:OR)|(?i:LEQ)|(?i:LT)|(?i:GEQ)|(?i:GT)|(?i:NOT)|(?i:EQL)|(?i:NEQ)|[+\-*/%^|&]|(:=)|(«)|(»)|(<=)|(>=)
@@ -48,10 +48,18 @@ WHITESPACE      [ \t\f\n]+
 %%
 
 void store(std::string lexeme, std::string token) {
+    // printf("%s: %s\n", token.c_str(), lexeme.c_str());
+    
     if (!lexemes.count(lexeme)) {
         lexemes[lexeme] = {1, token};
         return;
     }
 
     lexemes[lexeme].first++;
+}
+
+int main(int /* argc */, char** /* argv */) {
+    FlexLexer* lexer = new yyFlexLexer;
+    while(lexer->yylex() != 0);
+    return 0;
 }
