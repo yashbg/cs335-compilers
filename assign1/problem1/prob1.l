@@ -43,7 +43,7 @@ WHITESPACE      [ \t\f\n]+
 
 {HEXADECIMAL}       store(yytext, "HEXADECIMAL");
 
-{COMMENT}           store(yytext, "COMMENT");
+{COMMENT}           /* ignore comment */
 
 {WHITESPACE}        /* ignore whitespace */
 
