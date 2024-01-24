@@ -22,7 +22,7 @@ DELIMITER       [;:,[\]{}()]
 INTEGER         0|[1-9][0-9]*
 FLOATING_POINT  {INTEGER}\.[0-9]{1,6}
 HEXADECIMAL     0[xX](0|[1-9a-fA-F][0-9a-fA-F]*)
-COMMENT         \{(.|\n)*\}
+COMMENT         \{[^{}]*\}
 WHITESPACE      [ \t\f\n]+
 
 %%
