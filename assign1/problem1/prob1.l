@@ -52,7 +52,7 @@ WHITESPACE      [ \t\f\n]+
 %%
 
 void store(const std::string &lexeme, const std::string &token) {
-    token == "KEYWORD" ? counts[tolower(lexeme)]++ : counts[lexeme]++;
+    (token == "KEYWORD" || token == "OPERATOR") ? counts[tolower(lexeme)]++ : counts[lexeme]++;
     tokens[lexeme] = token;
 }
 
@@ -71,7 +71,7 @@ int main(int /* argc */, char** /* argv */) {
 
     std::cout << std::left << std::setw(20) << "TOKEN" << std::setw(10) << "COUNT" << "LEXEME" << std::endl;
     for (auto &token : tokens) {
-        int count = token.second == "KEYWORD" ? counts[tolower(token.first)] : counts[token.first];
+        int count = (token.second == "KEYWORD" || token.second == "OPERATOR") ? counts[tolower(token.first)] : counts[token.first];
         std::cout << std::left << std::setw(20) << token.second << std::setw(10) << count << token.first << std::endl;
     }
     
