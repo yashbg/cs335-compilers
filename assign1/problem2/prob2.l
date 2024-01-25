@@ -3,6 +3,7 @@
 #include <string>
 #include <map>
 #include <cctype>
+#include <iomanip>
 
 std::map<std::string, std::string> tokens; // lexeme -> token
 std::map<std::string, int> counts; // lexeme -> count
@@ -72,10 +73,10 @@ int main(int /* argc */, char** /* argv */) {
     FlexLexer* lexer = new yyFlexLexer;
     while(lexer->yylex() != 0);
 
-    std::cout << "TOKEN\t\tCOUNT\t\tLEXEME" << std::endl;
+    std::cout << std::left << std::setw(20) << "TOKEN" << std::setw(10) << "COUNT" << "LEXEME" << std::endl;
     for (auto &token : tokens) {
         int count = token.second == "CHAR_LITERAL" ? counts[token.first] : counts[tolower(token.first)];
-        std::cout << token.second << "\t\t" << count << "\t\t" << token.first << std::endl;
+        std::cout << std::left << std::setw(20) << token.second << std::setw(10) << count << token.first << std::endl;
     }
     
     return 0;

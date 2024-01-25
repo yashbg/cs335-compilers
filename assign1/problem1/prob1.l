@@ -4,6 +4,7 @@
 #include <map>
 #include <utility>
 #include <cctype>
+#include <iomanip>
 
 std::map<std::string, std::pair<int, std::string>> lexemes; // lexeme -> (count, token)
 std::map<std::string, int> keywords; // keyword -> count
@@ -79,10 +80,10 @@ int main(int /* argc */, char** /* argv */) {
     FlexLexer* lexer = new yyFlexLexer;
     while(lexer->yylex() != 0);
 
-    std::cout << "TOKEN\t\tCOUNT\t\tLEXEME" << std::endl;
+    std::cout << std::left << std::setw(20) << "TOKEN" << std::setw(10) << "COUNT" << "LEXEME" << std::endl;
     for (auto &lexeme : lexemes) {
         int count = lexeme.second.second == "KEYWORD" ? keywords[tolower(lexeme.first)] : lexeme.second.first;
-        std::cout << lexeme.second.second << "\t\t" << count << "\t\t" << lexeme.first << std::endl;
+        std::cout << std::left << std::setw(20) << lexeme.second.second << std::setw(10) << count << lexeme.first << std::endl;
     }
     
     return 0;
