@@ -14,14 +14,14 @@ std::string tolower(const std::string &str);
 
 %option c++ noyywrap yylineno nodefault yylineno
 
-KEYWORD         (?i:allocatable)|(?i:allocate)|(?i:assign)|(?i:associate)|(?i:asynchronous)|(?i:backspace)|(?i:bind)|(?i:call)|(?i:case)|(?i:class)|(?i:close)|(?i:common)|(?i:contains)|(?i:continue)|(?i:cycle)|(?i:codimension)|(?i:contiguous)|(?i:critical)|(?i:data)|(?i:deallocate)|(?i:deferred)|(?i:dimension)|(?i:do)|(?i:else)|(?i:elsewhere)|(?i:end)|(?i:endfile)|(?i:endif)|(?i:entry)|(?i:equivalence)|(?i:exit)|(?i:external)|(?i:enum)|(?i:enumerator)|(?i:extends)|(?i:forall)|(?i:final)|(?i:flush)|(?i:format)|(?i:function)|(?i:goto)|(?i:generic)|(?i:import)|(?i:if)|(?i:implicit)|(?i:inquire)|(?i:intrinsic)|(?i:include)|(?i:interface)|(?i:intent)|(?i:lock)|(?i:module)|(?i:nopass)|(?i:namelist)|(?i:nullify)|(?i:open)|(?i:only)|(?i:operator)|(?i:optional)|(?i:parameter)|(?i:pause)|(?i:print)|(?i:program)|(?i:pointer)|(?i:private)|(?i:pass)|(?i:protected)|(?i:procedure)|(?i:public)|(?i:read)|(?i:return)|(?i:recursive)|(?i:result)|(?i:rewind)|(?i:rewrite)|(?i:save)|(?i:stop)|(?i:subroutine)|(?i:select)|(?i:sequence)|(?i:submodule)|(?i:target)|(?i:then)|(?i:use)|(?i:value)|(?i:unlock)|(?i:volatile)|(?i:while)|(?i:write)
+KEYWORD         ?i:allocatable|allocate|assign|associate|asynchronous|backspace|bind|call|case|class|close|common|contains|continue|cycle|codimension|contiguous|critical|data|deallocate|deferred|dimension|do|else|elsewhere|end|endfile|endif|entry|equivalence|exit|external|enum|enumerator|extends|forall|final|flush|format|function|goto|generic|import|if|implicit|inquire|intrinsic|include|interface|intent|lock|module|nopass|namelist|nullify|open|only|operator|optional|parameter|pause|print|program|pointer|private|pass|protected|procedure|public|read|return|recursive|result|rewind|rewrite|save|stop|subroutine|select|sequence|submodule|target|then|use|value|unlock|volatile|while|write
 NAME            [a-zA-Z][a-zA-Z0-9_]{0,62}
 INT_LITERAL     [+\-]?[0-9]+
 significand     ([0-9]+\.[0-9]*)|(\.[0-9]+)
 REAL_LITERAL    [+\-]?(({significand}([EDed]{INT_LITERAL})?)|([0-9]+[EDed]{INT_LITERAL}))
-LOGICAL_LITERAL \.((?i:TRUE)|(?i:FALSE))\.
+LOGICAL_LITERAL \.(?i:TRUE|FALSE)\.
 CHAR_LITERAL    \"[^'"]*\"
-OPERATOR        [=+\-*/<>%&]|"**"|"//"|(==)|"/="|(<=)|(>=)|(&&)|(<<)|(>>)|"||"|(\.((?i:EQ)|(?i:NE)|(?i:LT)|(?i:LE)|(?i:GT)|(?i:GE)|(?i:NOT)|(?i:AND)|(?i:OR)|(?i:EQV)|(?i:NEQV))\.)
+OPERATOR        [=+\-*/<>%&]|"**"|"//"|==|"/="|<=|>=|&&|<<|>>|"||"|(\.(?i:EQ|NE|LT|LE|GT|GE|NOT|AND|OR|EQV|NEQV)\.)
 DELIMITER       [()[\]]|"(/"|"/)"
 COMMENT         ^[ \t]*!.*\n
 SPECIAL_CHAR    [\\{},.:;!~?'`^|$#@]
