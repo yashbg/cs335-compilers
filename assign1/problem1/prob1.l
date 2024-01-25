@@ -2,12 +2,11 @@
 #include <iostream>
 #include <string>
 #include <map>
-#include <utility>
 #include <cctype>
 #include <iomanip>
 
-std::map<std::string, std::pair<int, std::string>> lexemes; // lexeme -> (count, token)
-std::map<std::string, int> keywords; // keyword -> count
+std::map<std::string, std::string> tokens; // lexeme -> token
+std::map<std::string, int> counts; // lexeme -> count
 
 void store(const std::string &lexeme, const std::string &token);
 std::string tolower(const std::string &str);
@@ -53,18 +52,8 @@ WHITESPACE      [ \t\f\n]+
 %%
 
 void store(const std::string &lexeme, const std::string &token) {
-    if (token == "KEYWORD") {
-        keywords[tolower(lexeme)]++;
-        lexemes[lexeme] = {0, token};
-        return;
-    }
-
-    if (!lexemes.count(lexeme)) {
-        lexemes[lexeme] = {1, token};
-        return;
-    }
-
-    lexemes[lexeme].first++;
+    token == "KEYWORD" ? counts[tolower(lexeme)]++ : counts[lexeme]++;
+    tokens[lexeme] = token;
 }
 
 std::string tolower(const std::string &str) {
@@ -81,9 +70,9 @@ int main(int /* argc */, char** /* argv */) {
     while(lexer->yylex() != 0);
 
     std::cout << std::left << std::setw(20) << "TOKEN" << std::setw(10) << "COUNT" << "LEXEME" << std::endl;
-    for (auto &lexeme : lexemes) {
-        int count = lexeme.second.second == "KEYWORD" ? keywords[tolower(lexeme.first)] : lexeme.second.first;
-        std::cout << std::left << std::setw(20) << lexeme.second.second << std::setw(10) << count << lexeme.first << std::endl;
+    for (auto &token : tokens) {
+        int count = token.second == "KEYWORD" ? counts[tolower(token.first)] : counts[token.first];
+        std::cout << std::left << std::setw(20) << token.second << std::setw(10) << count << token.first << std::endl;
     }
     
     return 0;
