@@ -8,7 +8,7 @@
 std::map<std::string, std::pair<int, std::string>> lexemes; // lexeme -> (count, token)
 std::map<std::string, int> keywords; // keyword -> count
 
-void store(std::string lexeme, std::string token);
+void store(const std::string &lexeme, const std::string &token);
 std::string tolower(const std::string &str);
 %}
 
@@ -51,7 +51,7 @@ WHITESPACE      [ \t\f\n]+
 
 %%
 
-void store(std::string lexeme, std::string token) {
+void store(const std::string &lexeme, const std::string &token) {
     if (token == "KEYWORD") {
         keywords[tolower(lexeme)]++;
         lexemes[lexeme] = {0, token};
