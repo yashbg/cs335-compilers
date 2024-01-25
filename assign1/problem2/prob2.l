@@ -26,6 +26,8 @@ DELIMITER       [()[\]]|"(/"|"/)"
 COMMENT         ^[ \t]*!.*\n
 SPECIAL_CHAR    [\\{},.:;!~?'`^|$#@]
 WHITESPACE      [ \t\f\n]+
+err-string1     \"[^"]*\"
+err-string2     \"[^"]*
 
 %%
 
@@ -51,9 +53,9 @@ WHITESPACE      [ \t\f\n]+
 
 {WHITESPACE}        /* ignore whitespace */
 
-\"[^"]*\"           std::cout << "Error on line " << yylineno << ": Ill-formed string: " << yytext << std::endl;
+{err-string1}       std::cout << "Error on line " << yylineno << ": Ill-formed string: " << yytext << std::endl;
 
-\"[^"]*             std::cout << "Error on line " << yylineno << ": Ill-formed string: " << yytext << std::endl;
+{err-string2}       std::cout << "Error on line " << yylineno << ": Ill-formed string: " << yytext << std::endl;
 
 .                   std::cout << "Error on line " << yylineno << ": Illegal character: " << yytext << std::endl;
 
