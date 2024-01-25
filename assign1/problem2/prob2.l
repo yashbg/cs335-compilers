@@ -20,7 +20,7 @@ significand     ([0-9]+\.[0-9]*)|(\.[0-9]+)
 REAL_LITERAL    [+-]?(({significand}([EDed]{INT_LITERAL})?)|([0-9]+[EDed]{INT_LITERAL}))
 LOGICAL_LITERAL \.((?i:TRUE)|(?i:FALSE))\.
 CHAR_LITERAL    \"[^'"]*\"
-OPERATOR
+OPERATOR        [=+-*/<>%&]|"**"|"//"|(==)|"/="|(<=)|(>=)|(&&)|(<<)|(>>)|"||"|(\.((?i:EQ)|(?i:NE)|(?i:LT)|(?i:LE)|(?i:GT)|(?i:GE)|(?i:NOT)|(?i:AND)|(?i:OR)|(?i:EQV)|(?i:NEQV))\.)
 DELIMITER       [()[\]]|"(/"|"/)"
 COMMENT         !.*\n
 SPECIAL_CHAR    
