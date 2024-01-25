@@ -14,8 +14,8 @@ program VariableDeclarationExample
   d = 26.718
 
   ! Display the values
-   print *, 'Integer variables: a =', a, 'b =', b
-   print *, 'Real variables: c =', c, 'd =', d
-   print *, 'Character variable: name =', name
+   print *, "Integer variables: a =", a, "b =", b
+   print *, "Real variables: c =", c, "d =", d
+   print *, "Character variable: name =", name
 
 end program VariableDeclarationExample
