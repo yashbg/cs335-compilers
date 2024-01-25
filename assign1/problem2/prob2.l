@@ -7,7 +7,7 @@
 std::map<std::string, std::string> tokens; // lexeme -> token
 std::map<std::string, int> counts; // lexeme -> count
 
-void store(std::string lexeme, std::string token);
+void store(const std::string &lexeme, const std::string &token);
 std::string tolower(const std::string &str);
 %}
 
@@ -53,8 +53,8 @@ WHITESPACE      [ \t\f\n]+
 
 %%
 
-void store(std::string lexeme, std::string token) {
-    counts[tolower(lexeme)]++;
+void store(const std::string &lexeme, const std::string &token) {
+    token == "CHAR_LITERAL" ? counts[lexeme]++ : counts[tolower(lexeme)]++;
     tokens[lexeme] = token;
 }
 
@@ -73,7 +73,8 @@ int main(int /* argc */, char** /* argv */) {
 
     std::cout << "TOKEN\t\tCOUNT\t\tLEXEME" << std::endl;
     for (auto &token : tokens) {
-        std::cout << token.second << "\t\t" << counts[tolower(token.first)] << "\t\t" << token.first << std::endl;
+        int count = token.second == "CHAR_LITERAL" ? counts[token.first] : counts[tolower(token.first)];
+        std::cout << token.second << "\t\t" << count << "\t\t" << token.first << std::endl;
     }
     
     return 0;
