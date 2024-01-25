@@ -53,8 +53,7 @@ WHITESPACE      [ \t\f\n]+
 
 void store(std::string lexeme, std::string token) {
     if (token == "KEYWORD") {
-        std::string lexeme_lower = tolower(lexeme);
-        keywords[lexeme_lower]++;
+        keywords[tolower(lexeme)]++;
         lexemes[lexeme] = {0, token};
         return;
     }
