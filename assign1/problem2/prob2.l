@@ -23,9 +23,9 @@ LOGICAL_LITERAL \.(?i:TRUE|FALSE)\.
 CHAR_LITERAL    \"[^'"]*\"
 OPERATOR        [=+\-*/<>%&]|"**"|"//"|==|"/="|<=|>=|&&|<<|>>|"||"|(\.(?i:EQ|NE|LT|LE|GT|GE|NOT|AND|OR|EQV|NEQV)\.)
 DELIMITER       [()[\]]|"(/"|"/)"
-COMMENT         ^[ \t]*!.*\n
+COMMENT         ^[ \t]*![^\n]*
 SPECIAL_CHAR    [\\{},.:;!~?'`^|$#@]
-WHITESPACE      [ \t\f\n]+
+WHITESPACE      [ \t\f\n]
 err-string1     \"[^"]*\"
 err-string2     \"[^"]*
 
