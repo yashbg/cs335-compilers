@@ -1,0 +1,8 @@
+Token          Count     Lexeme         
+CHAR_LITERAL   1         "Hello World, Welcome to compilers!"
+OPERATOR       1         *              
+SPECIAL_CHAR   1         ,              
+NAME           2         Compilers      
+KEYWORD        1         end            
+KEYWORD        1         print          
+KEYWORD        2         program        

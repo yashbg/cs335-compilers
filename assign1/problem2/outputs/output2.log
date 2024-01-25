@@ -1,0 +1,15 @@
+Token          Count     Lexeme         
+DELIMETER      1         (              
+DELIMETER      1         )              
+OPERATOR       1         -              
+INT_LITERAL    1         0              
+OPERATOR       2         =              
+OPERATOR       1         >              
+NAME           2         ControlFlowExample
+KEYWORD        1         else           
+KEYWORD        2         end            
+KEYWORD        2         if             
+KEYWORD        2         program        
+KEYWORD        1         then           
+NAME           3         x              
+NAME           2         y              

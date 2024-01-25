@@ -1,0 +1,11 @@
+Token          Count     Lexeme         
+OPERATOR       1         &&             
+INT_LITERAL    1         10             
+INT_LITERAL    1         5              
+OPERATOR       3         =              
+NAME           2         BitwiseExample 
+KEYWORD        1         end            
+KEYWORD        2         program        
+NAME           2         x              
+NAME           2         y              
+NAME           1         z              

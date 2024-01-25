@@ -1,0 +1,29 @@
+Token          Count     Lexeme         
+CHAR_LITERAL   1         "Character variable: name ="
+CHAR_LITERAL   1         "Integer variables: a ="
+CHAR_LITERAL   1         "Real variables: c ="
+CHAR_LITERAL   1         "b ="          
+CHAR_LITERAL   1         "d ="          
+DELIMETER      1         (              
+DELIMETER      1         )              
+OPERATOR       3         *              
+SPECIAL_CHAR   12        ,              
+INT_LITERAL    1         10             
+REAL_LITERAL   1         26.718         
+REAL_LITERAL   1         3.14           
+INT_LITERAL    1         5              
+INT_LITERAL    1         64             
+SPECIAL_CHAR   6         :              
+OPERATOR       4         =              
+NAME           2         VariableDeclarationExample
+NAME           3         a              
+NAME           3         b              
+NAME           3         c              
+NAME           1         character      
+NAME           3         d              
+KEYWORD        1         end            
+NAME           1         integer        
+NAME           2         name           
+KEYWORD        3         print          
+KEYWORD        2         program        
+NAME           1         real           
