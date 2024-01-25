@@ -51,7 +51,11 @@ WHITESPACE      [ \t\f\n]+
 
 {WHITESPACE}        /* ignore whitespace */
 
-.                   std::cout << "Line " << yylineno << ": Unrecognized character: " << yytext << std::endl;
+\"[^"]*\"           std::cout << "Error on line " << yylineno << ": Ill-formed string: " << yytext << std::endl;
+
+\"[^"]*             std::cout << "Error on line " << yylineno << ": Ill-formed string: " << yytext << std::endl;
+
+.                   std::cout << "Error on line " << yylineno << ": Illegal character: " << yytext << std::endl;
 
 %%
 
