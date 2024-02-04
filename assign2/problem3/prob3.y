@@ -62,14 +62,10 @@ int main() {
   printf("Number of answer choices: %d\n", num_choice);
   printf("Number of correct answers: %d\n", num_correct);
   printf("Total marks: %d\n", total_marks);
-  printf("Number of 1 mark questions: %d\n", num_marks[1]);
-  printf("Number of 2 marks questions: %d\n", num_marks[2]);
-  printf("Number of 3 marks questions: %d\n", num_marks[3]);
-  printf("Number of 4 mark questions: %d\n", num_marks[4]);
-  printf("Number of 5 mark questions: %d\n", num_marks[5]);
-  printf("Number of 6 mark questions: %d\n", num_marks[6]);
-  printf("Number of 7 mark questions: %d\n", num_marks[7]);
-  printf("Number of 8 mark questions: %d\n", num_marks[8]);
+
+  for (int i = 1; i <= 8; i++) {
+    printf("Number of %d mark questions: %d\n", i, num_marks[i]);
+  }
 }
 
 void yyerror(char const *s) {
