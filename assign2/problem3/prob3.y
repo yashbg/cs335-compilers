@@ -5,54 +5,46 @@
   void yyerror(char const *);
 %}
 
-%token QUIZ
-%token SINGLESELECT
-%token MULTISELECT
-%token MARKS
-%token SINGLESELECT_MARKS_NUM
-%token MULTISELECT_MARKS_NUM
-%token CHOICE
-%token CORRECT
-%token CLOSE_TAG_OPEN
+%token QUIZ_OPEN QUIZ_CLOSE
+%token SINGLESELECT_OPEN SINGLESELECT_CLOSE
+%token MULTISELECT_OPEN MULTISELECT_CLOSE
+%token CHOICE_OPEN CHOICE_CLOSE
+%token CORRECT_OPEN CORRECT_CLOSE
 
 %%
 
 quiz:
-  '<' QUIZ '>' question CLOSE_TAG_OPEN QUIZ '>'
+  QUIZ_OPEN question QUIZ_CLOSE
 
 question:
   %empty
-| question '<' SINGLESELECT MARKS '=' '"' SINGLESELECT_MARKS_NUM '"' '>' ss_question_body CLOSE_TAG_OPEN SINGLESELECT '>'
-| question '<' MULTISELECT MARKS '=' '"' MULTISELECT_MARKS_NUM '"' '>' ms_question_body CLOSE_TAG_OPEN MULTISELECT '>'
+| question SINGLESELECT_OPEN ss_question_body SINGLESELECT_CLOSE
+| question MULTISELECT_OPEN ms_question_body MULTISELECT_CLOSE
 
 ss_question_body:
-  ss_correct choice choice choice
-| choice ss_correct choice choice
-| choice choice ss_correct choice
-| choice choice choice ss_correct
-| ss_correct choice choice choice choice
-| choice ss_correct choice choice choice
-| choice choice ss_correct choice choice
-| choice choice choice ss_correct choice
-| choice choice choice choice ss_correct
+  correct choice choice choice
+| choice correct choice choice
+| choice choice correct choice
+| choice choice choice correct
+| correct choice choice choice choice
+| choice correct choice choice choice
+| choice choice correct choice choice
+| choice choice choice correct choice
+| choice choice choice choice correct
 
 ms_question_body:
-  ms_correct choice ms_correct choice ms_correct choice ms_correct
-| ms_correct choice ms_correct choice ms_correct choice ms_correct choice ms_correct
-
-/* question_body:
-  choice choice choice correct
-| choice choice choice choice correct */
+  correct_multi choice correct_multi choice correct_multi choice correct_multi
+| correct_multi choice correct_multi choice correct_multi choice correct_multi choice correct_multi
 
 choice:
-  '<' CHOICE '>' CLOSE_TAG_OPEN CHOICE '>'
+  CHOICE_OPEN CHOICE_CLOSE
 
-ss_correct:
-  '<' CORRECT '>' CLOSE_TAG_OPEN CORRECT '>'
-
-ms_correct:
+correct_multi:
   %empty
-| ms_correct '<' CORRECT '>' CLOSE_TAG_OPEN CORRECT '>'
+| correct_multi correct
+
+correct:
+  CORRECT_OPEN CORRECT_CLOSE
 
 %%
 

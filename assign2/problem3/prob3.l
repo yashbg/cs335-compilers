@@ -5,20 +5,24 @@
 
 %option noyywrap yylineno nodefault
 
-ws    [ \t\f\n]
+num           [0-9]+
+ws            [ \t\f\n]
+marks_attr    (?i:marks){ws}*={ws}*\"{ws}*{num}{ws}*\"
 
 %%
 
-(?i:quiz)           return QUIZ;
-(?i:singleselect)   return SINGLESELECT;
-(?i:multiselect)    return MULTISELECT;
-(?i:marks)          return MARKS;
-(?i:choice)         return CHOICE;
-(?i:correct)        return CORRECT;
-[1-2]               return SINGLESELECT_MARKS_NUM;
-[2-8]               return MULTISELECT_MARKS_NUM;
-\<{ws}*\/           return CLOSE_TAG_OPEN;
-[<>/="]             return yytext[0];
-.|\n                /* ignore question text and stray characters */
+\<{ws}*(?i:quiz){ws}*\>                             return QUIZ_OPEN;
+\<{ws}*\/{ws}*(?i:quiz){ws}*\>                      return QUIZ_CLOSE;
+\<{ws}*(?i:singleselect){ws}*{marks_attr}{ws}*\>    return SINGLESELECT_OPEN;
+\<{ws}*\/{ws}*(?i:singleselect){ws}*\>              return SINGLESELECT_CLOSE;
+\<{ws}*(?i:multiselect){ws}*{marks_attr}{ws}*\>     return MULTISELECT_OPEN;
+\<{ws}*\/{ws}*(?i:multiselect){ws}*\>               return MULTISELECT_CLOSE;
+\<{ws}*(?i:choice){ws}*\>                           return CHOICE_OPEN;
+\<{ws}*\/{ws}*(?i:choice){ws}*\>                    return CHOICE_CLOSE;
+\<{ws}*(?i:correct){ws}*\>                          return CORRECT_OPEN;
+\<{ws}*\/{ws}*(?i:correct){ws}*\>                   return CORRECT_CLOSE;
+\<[^/>]*\>                                          /* ignore misspelt open tag */
+\<{ws}*\/[^>]*\>                                    /* ignore misspelt close tag */
+.|\n                                                /* ignore question text and stray characters */
 
 %%
