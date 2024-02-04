@@ -1,5 +1,8 @@
 %{
-// int yylex();
+  #include <stdio.h>
+
+  int yylex();
+  void yyerror(char const *);
 %}
 
 %token QUIZ
@@ -8,7 +11,6 @@
 %token MARKS
 %token SINGLESELECT_MARKS_NUM
 %token MULTISELECT_MARKS_NUM
-%token STRING
 %token CHOICE
 %token CORRECT
 
@@ -23,18 +25,22 @@ question:
 | question '<' MULTISELECT MARKS '=' '"' MULTISELECT_MARKS_NUM '"' '>' question_body '<' '/' MULTISELECT '>'
 
 question_body:
-  STRING choice choice choice correct
-| STRING choice choice choice choice correct
+  choice choice choice correct
+| choice choice choice choice correct
 
 choice:
-  '<' CHOICE '>' STRING '<' '/' CHOICE '>'
+  '<' CHOICE '>' '<' '/' CHOICE '>'
 
 correct:
   %empty
-| correct '<' CORRECT '>' STRING '<' '/' CORRECT '>'
+| correct '<' CORRECT '>' '<' '/' CORRECT '>'
 
 %%
 
 int main() {
   return yyparse();
+}
+
+void yyerror(char const *s) {
+  fprintf(stderr, "%s\n", s);
 }
