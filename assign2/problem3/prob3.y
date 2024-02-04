@@ -3,6 +3,8 @@
 
   int yylex();
   void yyerror(char const *);
+  void singleselect_action(int marks);
+  void multiselect_action(int marks);
 %}
 
 %token QUIZ_OPEN QUIZ_CLOSE
@@ -18,8 +20,8 @@ quiz:
 
 question:
   %empty
-| question SINGLESELECT_OPEN ss_question_body SINGLESELECT_CLOSE
-| question MULTISELECT_OPEN ms_question_body MULTISELECT_CLOSE
+| question SINGLESELECT_OPEN ss_question_body SINGLESELECT_CLOSE { singleselect_action($SINGLESELECT_OPEN); }
+| question MULTISELECT_OPEN ms_question_body MULTISELECT_CLOSE { multiselect_action($MULTISELECT_OPEN); }
 
 ss_question_body:
   correct choice choice choice
@@ -54,4 +56,16 @@ int main() {
 
 void yyerror(char const *s) {
   fprintf(stderr, "%s\n", s);
+}
+
+void singleselect_action(int marks) {
+  if (marks != 1 && marks != 2) {
+    yyerror("marks is out of range in singleselect tag");
+  }
+}
+
+void multiselect_action(int marks) {
+  if (marks < 2 || marks > 8) {
+    yyerror("marks is out of range in multiselect tag");
+  }
 }
