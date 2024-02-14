@@ -42,5 +42,5 @@ void store_marks() {
 }
 
 void yyerror(char const *s) {
-  fprintf(stderr, "Error on line %d: %s\n", yylineno, s);
+  fprintf(stderr, "Error on line %d: %s: %s\n", yylineno, s, yytext);
 }
