@@ -3,6 +3,7 @@
   #include <ctype.h>
   #include "prob3.tab.h"
 
+  void yyerror(char const *s);
   void store_marks();
 %}
 
@@ -24,6 +25,8 @@ marks_attr    (?i:marks){ws}*={ws}*\"{ws}*{num}{ws}*\"
 \<{ws}*\/{ws}*(?i:choice){ws}*\>                    return CHOICE_CLOSE;
 \<{ws}*(?i:correct){ws}*\>                          return CORRECT_OPEN;
 \<{ws}*\/{ws}*(?i:correct){ws}*\>                   return CORRECT_CLOSE;
+\<{ws}*(?i:singleselect)[^/>]*\>                    yyerror("marks attribute is erroneous in singleselect tag");
+\<{ws}*(?i:multiselect)[^/>]*\>                     yyerror("marks attribute is erroneous in multiselect tag");
 \<[^/>]*\>                                          /* ignore misspelt open tag */
 \<{ws}*\/[^>]*\>                                    /* ignore misspelt close tag */
 .|\n                                                /* ignore question text and stray characters */
