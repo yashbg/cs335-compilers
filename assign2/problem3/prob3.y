@@ -5,7 +5,7 @@
   int num_marks[9] = {0};
 
   int yylex();
-  void yyerror(char const *);
+  void yyerror(char const *s);
   void singleselect_action(int marks);
   void multiselect_action(int marks);
 %}
@@ -66,10 +66,6 @@ int main() {
   for (int i = 1; i <= 8; i++) {
     printf("Number of %d mark questions: %d\n", i, num_marks[i]);
   }
-}
-
-void yyerror(char const *s) {
-  fprintf(stderr, "%s\n", s);
 }
 
 void singleselect_action(int marks) {

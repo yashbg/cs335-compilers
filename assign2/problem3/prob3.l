@@ -37,3 +37,7 @@ void store_marks() {
   }
   yylval = atoi(str);
 }
+
+void yyerror(char const *s) {
+  fprintf(stderr, "Error on line %d: %s\n", yylineno, s);
+}
